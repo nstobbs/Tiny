@@ -1,8 +1,7 @@
 #pragma once
-#include "TinyMaths/types.h"
+#include "Tiny/types.h"
 
-namespace Tiny
-{
+namespace Tiny {
 
 template<typename T, size_t N>
 struct Vector
