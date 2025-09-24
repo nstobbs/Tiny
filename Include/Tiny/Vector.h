@@ -26,7 +26,7 @@ constexpr bool operator==(const Vector<T, N> &left, const Vector<T, N> &right) {
 };
 
 template<typename T, size_t N>
-constexpr bool operator!=(const Vector<T, N> left, const Vector<T, N> right) {
+constexpr bool operator!=(const Vector<T, N> &left, const Vector<T, N> &right) {
     if(left == right) {
         return false;
     }
@@ -52,7 +52,7 @@ Vector<T, N> subtract(Vector<T, N> &a, Vector<T, N> &b) {
 };
 
 template<typename T, size_t N>
-Vector<T, N> multiply(Vector<T, N> &a, T &scalar) {
+Vector<T, N> multiply(const Vector<T, N> &a, T scalar) {
     Vector<T, N> result;
     for (size_t i = 0; i < N; i++) {
         result.data[i] = a.data[i] * scalar;
