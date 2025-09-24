@@ -1,5 +1,5 @@
 #pragma once
-#include "Tiny/types.h"
+#include "Tiny/Types.h"
 
 namespace Tiny
 {

@@ -5,8 +5,9 @@ set(CXX_STANDARD 20)
 
 project(Tiny)
 
-target_include_directories(Tiny PUBLIC ${CMAKE_SOURCE_DIR}/include)
-target_compile_features(Tiny PUBLIC cxx_std_20)
+add_library(Tiny INTERFACE)
+
+target_include_directories(Tiny INTERFACE ${CMAKE_SOURCE_DIR}/include)
 
 add_subdirectory(ThirdParty)
 
