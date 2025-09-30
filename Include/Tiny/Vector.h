@@ -32,7 +32,7 @@ constexpr bool operator!=(const Vector<T, N> &left, const Vector<T, N> &right) {
 };
 
 template<typename T, size_t N>
-Vector<T, N> add(Vector<T, N> &a, Vector<T, N> &b) {
+Vector<T, N> add(const Vector<T, N> &a, const Vector<T, N> &b) {
     Vector<T, N> result;
     for (size_t i = 0; i < N; i++) {
         result.data[i] = a.data[i] + b.data[i];
@@ -41,7 +41,7 @@ Vector<T, N> add(Vector<T, N> &a, Vector<T, N> &b) {
 };
 
 template<typename T, size_t N>
-Vector<T, N> subtract(Vector<T, N> &a, Vector<T, N> &b) {
+Vector<T, N> subtract(const Vector<T, N> &a, const Vector<T, N> &b) {
     Vector<T, N> result;
     for (size_t i = 0; i < N; i++) {
         result.data[i] = a.data[i] - b.data[i];
@@ -85,6 +85,16 @@ T length(const Vector<T, N> &a) {
     return sqrt(result);
 };
 
+template<typename T, size_t N>
+Vector<T, N> normalize(const Vector<T, N> &a) {
+    T len = length(a);
+    Vector<T, N> result;
+    for (size_t i = 0; i < N; i++) {
+        result.data[i] = a.data[i] / len;
+    };
+    return result;
+};
+
 /* Declare Vectors */
 using Vec2f = Vector<f32, 2>;
 using Vec3f = Vector<f32, 3>;
@@ -97,4 +107,5 @@ using Vec4i = Vector<i32, 4>;
 using Vec2u = Vector<u32, 2>;
 using Vec3u = Vector<u32, 3>;
 using Vec4u = Vector<u32, 4>;
+
 }

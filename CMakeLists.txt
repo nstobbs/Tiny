@@ -8,6 +8,7 @@ project(Tiny)
 add_library(Tiny INTERFACE)
 
 target_include_directories(Tiny INTERFACE ${CMAKE_SOURCE_DIR}/include)
+target_compile_features(Tiny INTERFACE cxx_std_20) #fixes build issues on macOS
 
 add_subdirectory(ThirdParty)
 

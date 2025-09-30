@@ -54,3 +54,8 @@ TEST_CASE("Test Calculating Length of Vectors") {
     /* Test Vec4f */
     CHECK(length(Vec4f(4.0f, 1.0f, 2.0f, 5.0f)) == 6.78233f);
 }
+
+TEST_CASE("Test Normalizing Vectors") {
+    /* Test Vec2f */
+    CHECK(normalize(Vec2f(3.0f, 4.0f)) == Vec2f(0.6f, 0.8f));
+}
