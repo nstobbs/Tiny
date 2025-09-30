@@ -1,6 +1,7 @@
 #pragma once
 #include "Tiny/Types.h"
 #include <array>
+#include <cmath>
 
 namespace Tiny {
 
@@ -27,10 +28,7 @@ constexpr bool operator==(const Vector<T, N> &left, const Vector<T, N> &right) {
 
 template<typename T, size_t N>
 constexpr bool operator!=(const Vector<T, N> &left, const Vector<T, N> &right) {
-    if(left == right) {
-        return false;
-    }
-    return true;
+    return !(left == right);
 };
 
 template<typename T, size_t N>
@@ -58,6 +56,33 @@ Vector<T, N> multiply(const Vector<T, N> &a, T scalar) {
         result.data[i] = a.data[i] * scalar;
     }
     return result;
+};
+
+template<typename T, size_t N>
+T dotProduct(const Vector<T, N> &a, const Vector<T, N> &b) {
+    T result = static_cast<T>(0);
+    for (size_t i = 0; i < N; i++) {
+        result += a.data[i] * b.data[i];
+    };
+    return result;
+};
+
+template<typename T>
+Vector<T, 3> crossProduct(const Vector<T, 3> &a, const Vector<T, 3> &b) {
+    Vector<T, 3> result;
+    result.data[0] = (a.data[1] * b.data[2]) - (a.data[2] * b.data[1]);
+    result.data[1] = (a.data[2] * b.data[0]) - (a.data[0] * b.data[2]);
+    result.data[2] = (a.data[0] * b.data[1]) - (a.data[1] * b.data[0]);
+    return result;
+};
+
+template<typename T, size_t N>
+T length(const Vector<T, N> &a) {
+    T result = static_cast<T>(0);
+    for (size_t i = 0; i < N; i++) {
+        result += a.data[i] * a.data[i];
+    };
+    return sqrt(result);
 };
 
 /* Declare Vectors */
