@@ -1,7 +1,11 @@
 #pragma once
 #include "Tiny/Types.h"
+
 #include <array>
 #include <cmath>
+#include <ostream>
+#include <typeinfo>
+#include <format>
 
 namespace Tiny {
 
@@ -32,6 +36,31 @@ constexpr bool operator!=(const Vector<T, N> &left, const Vector<T, N> &right) {
 };
 
 template<typename T, size_t N>
+constexpr Vector<T, N> operator*(const Vector<T, N> &left, const Vector<T, N> &right) {
+    Vector<T, N> result; 
+    for (size_t i = 0; i < N; i++) {
+        result.data[i] = left.data[i] * right.data[i];
+    }
+    return result;
+};
+
+/* For DocTests Output Strings */
+template<typename T, size_t N>
+std::ostream& operator<<(std::ostream &os, const Vector<T, N> &thisVector) {
+    std::ostringstream stream;
+    stream << std::format("Vector<{}, {}>", typeid(T).name(), N) << " {";
+    for (size_t i = 0; i < N; i++) {
+        if (i == N - 1) {
+            stream << thisVector.data[i];
+        } else {
+            stream << thisVector.data[i] << ", ";
+        };
+    };
+    stream << "}";
+    return os << stream.str();
+};
+
+template<typename T, size_t N>
 Vector<T, N> add(const Vector<T, N> &a, const Vector<T, N> &b) {
     Vector<T, N> result;
     for (size_t i = 0; i < N; i++) {
@@ -54,6 +83,15 @@ Vector<T, N> multiply(const Vector<T, N> &a, T scalar) {
     Vector<T, N> result;
     for (size_t i = 0; i < N; i++) {
         result.data[i] = a.data[i] * scalar;
+    }
+    return result;
+};
+
+template<typename T, size_t N>
+Vector<T, N> divide(const Vector<T, N> &a, T scalar) {
+    Vector<T, N> result;
+    for (size_t i = 0; i < N; i++) {
+        result.data[i] = a.data[i] / scalar;
     }
     return result;
 };
@@ -93,6 +131,25 @@ Vector<T, N> normalize(const Vector<T, N> &a) {
         result.data[i] = a.data[i] / len;
     };
     return result;
+};
+
+template<typename T, size_t N>
+Vector<T, N> proj(const Vector<T, N> &from, const Vector<T, N> &to) {
+    return multiply(to, dotProduct(from, to) / pow(length(to), static_cast<T>(2.0f)));
+};
+
+/* Note: This reflect function will be
+based of the formula used in physics, where the
+vector being reflected is based on a incoming
+vector and is "bounced" into an outgoing vector. 
+Instead of reflecting an outgoing vector to an 
+"flipped" outgoing vector. */
+
+template<typename T, size_t N>
+Vector<T, N> reflect(const Vector<T, N> &direction, const Vector<T, N> &normal) {
+    Vector<T, N> negDirection = multiply(direction, static_cast<T>(-1.0f));
+    Vector<T, N> c = subtract(negDirection, proj(negDirection, normal));
+    return subtract(proj(negDirection, normal), c);
 };
 
 /* Declare Vectors */

@@ -31,6 +31,16 @@ TEST_CASE("Test Multiplying Vectors with Scalars") {
     CHECK(multiply(Vec4f(3.0f, 2.0f, 3.0f, 2.0f), 1.0f) == Vec4f(3.0f, 2.0f, 3.0f, 2.0f));
 }
 
+TEST_CASE("Test Dividing Vectors with Scalars") {
+    /* Test Vec2f */
+    CHECK(divide(Vec2f(10.0f, 5.0f), 2.0f) == Vec2f(5.0f, 2.5f));
+}
+
+TEST_CASE("Test Multiplying Elementwise with Vectors ") {
+    /* Test Vec2f */
+    CHECK(Vec2f(1.0f, 2.0f) * Vec2f(2.0f, 1.5f)  == Vec2f(2.0f, 3.0f));
+}
+
 TEST_CASE("Test Calculating DotProduct of Vectors") {
     /* Test Vec2f */
     CHECK(dotProduct(Vec2f(3.0f, 2.0f), Vec2f(1.5f, 2.5f)) == 9.5f);
@@ -58,4 +68,15 @@ TEST_CASE("Test Calculating Length of Vectors") {
 TEST_CASE("Test Normalizing Vectors") {
     /* Test Vec2f */
     CHECK(normalize(Vec2f(3.0f, 4.0f)) == Vec2f(0.6f, 0.8f));
+}
+
+TEST_CASE("Test Projecting Vectors") {
+    /* Test Vec2f */
+    CHECK(proj(Vec2f(-1.0f, 1.0f), Vec2f(1.0f, 1.0f)) == Vec2f(0.0f, 0.0f));
+    CHECK(proj(Vec2f(4.0f, 2.0f), Vec2f(2.0f, 1.0f)) == Vec2f(4.0f, 2.0f));
+}
+
+TEST_CASE("Test Reflecting Vectors") {
+    /* Test Vec2f */
+    CHECK(reflect(Vec2f(3.0f, 4.0f), Vec2f(0.0f, 1.0f)) == Vec2f(3.0f, -4.0f));
 }
