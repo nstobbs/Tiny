@@ -10,8 +10,7 @@
 namespace Tiny {
 
 template<typename T, size_t N>
-struct Vector
-{
+struct Vector {
     std::array<T, N> data{};
 
     constexpr Vector() : data{} {};
@@ -35,16 +34,7 @@ constexpr bool operator!=(const Vector<T, N> &left, const Vector<T, N> &right) {
     return !(left == right);
 };
 
-template<typename T, size_t N>
-constexpr Vector<T, N> operator*(const Vector<T, N> &left, const Vector<T, N> &right) {
-    Vector<T, N> result; 
-    for (size_t i = 0; i < N; i++) {
-        result.data[i] = left.data[i] * right.data[i];
-    }
-    return result;
-};
-
-/* For DocTests Output Strings */
+/* For DocTests Outputting Strings */
 template<typename T, size_t N>
 std::ostream& operator<<(std::ostream &os, const Vector<T, N> &thisVector) {
     std::ostringstream stream;
@@ -58,6 +48,15 @@ std::ostream& operator<<(std::ostream &os, const Vector<T, N> &thisVector) {
     };
     stream << "}";
     return os << stream.str();
+};
+
+template<typename T, size_t N>
+constexpr Vector<T, N> operator*(const Vector<T, N> &left, const Vector<T, N> &right) {
+    Vector<T, N> result; 
+    for (size_t i = 0; i < N; i++) {
+        result.data[i] = left.data[i] * right.data[i];
+    }
+    return result;
 };
 
 template<typename T, size_t N>
@@ -134,22 +133,19 @@ Vector<T, N> normalize(const Vector<T, N> &a) {
 };
 
 template<typename T, size_t N>
-Vector<T, N> proj(const Vector<T, N> &from, const Vector<T, N> &to) {
+Vector<T, N> project(const Vector<T, N> &from, const Vector<T, N> &to) {
     return multiply(to, dotProduct(from, to) / pow(length(to), static_cast<T>(2.0f)));
 };
 
-/* Note: This reflect function will be
-based of the formula used in physics, where the
-vector being reflected is based on a incoming
-vector and is "bounced" into an outgoing vector. 
-Instead of reflecting an outgoing vector to an 
-"flipped" outgoing vector. */
-
+/* Note: This reflect function is based of the formula used in physics, where the
+vector being reflected is based on a incoming vector and is "bounced" into an outgoing vector. 
+Instead of reflecting an outgoing vector to an "flipped" outgoing vector. Hence why the
+direction vector is inverted in this function.*/
 template<typename T, size_t N>
 Vector<T, N> reflect(const Vector<T, N> &direction, const Vector<T, N> &normal) {
     Vector<T, N> negDirection = multiply(direction, static_cast<T>(-1.0f));
-    Vector<T, N> c = subtract(negDirection, proj(negDirection, normal));
-    return subtract(proj(negDirection, normal), c);
+    Vector<T, N> c = subtract(negDirection, project(negDirection, normal));
+    return subtract(project(negDirection, normal), c);
 };
 
 /* Declare Vectors */
@@ -160,9 +156,5 @@ using Vec4f = Vector<f32, 4>;
 using Vec2i = Vector<i32, 2>;
 using Vec3i = Vector<i32, 3>;
 using Vec4i = Vector<i32, 4>;
-
-using Vec2u = Vector<u32, 2>;
-using Vec3u = Vector<u32, 3>;
-using Vec4u = Vector<u32, 4>;
 
 }

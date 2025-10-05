@@ -72,8 +72,8 @@ TEST_CASE("Test Normalizing Vectors") {
 
 TEST_CASE("Test Projecting Vectors") {
     /* Test Vec2f */
-    CHECK(proj(Vec2f(-1.0f, 1.0f), Vec2f(1.0f, 1.0f)) == Vec2f(0.0f, 0.0f));
-    CHECK(proj(Vec2f(4.0f, 2.0f), Vec2f(2.0f, 1.0f)) == Vec2f(4.0f, 2.0f));
+    CHECK(project(Vec2f(-1.0f, 1.0f), Vec2f(1.0f, 1.0f)) == Vec2f(0.0f, 0.0f));
+    CHECK(project(Vec2f(4.0f, 2.0f), Vec2f(2.0f, 1.0f)) == Vec2f(4.0f, 2.0f));
 }
 
 TEST_CASE("Test Reflecting Vectors") {

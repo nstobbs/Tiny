@@ -11,3 +11,4 @@ function(tiny_add_test name)
 endfunction()
 
 tiny_add_test(Test_Vector Unit/Test_Vector.cpp)
+tiny_add_test(Test_Matrix Unit/Test_Matrix.cpp)
