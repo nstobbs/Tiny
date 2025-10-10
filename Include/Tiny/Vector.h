@@ -60,25 +60,7 @@ constexpr Vector<T, N> operator*(const Vector<T, N> &left, const Vector<T, N> &r
 };
 
 template<typename T, size_t N>
-Vector<T, N> add(const Vector<T, N> &a, const Vector<T, N> &b) {
-    Vector<T, N> result;
-    for (size_t i = 0; i < N; i++) {
-        result.data[i] = a.data[i] + b.data[i];
-    }
-    return result;
-};
-
-template<typename T, size_t N>
-Vector<T, N> subtract(const Vector<T, N> &a, const Vector<T, N> &b) {
-    Vector<T, N> result;
-    for (size_t i = 0; i < N; i++) {
-        result.data[i] = a.data[i] - b.data[i];
-    }
-    return result;
-};
-
-template<typename T, size_t N>
-Vector<T, N> multiply(const Vector<T, N> &a, T scalar) {
+Vector<T, N> operator*(const Vector<T, N> &a, T scalar) {
     Vector<T, N> result;
     for (size_t i = 0; i < N; i++) {
         result.data[i] = a.data[i] * scalar;
@@ -87,7 +69,25 @@ Vector<T, N> multiply(const Vector<T, N> &a, T scalar) {
 };
 
 template<typename T, size_t N>
-Vector<T, N> divide(const Vector<T, N> &a, T scalar) {
+Vector<T, N> operator+(const Vector<T, N> &left, const Vector<T, N> &right) {
+    Vector<T, N> result;
+    for (size_t i = 0; i < N; i++) {
+        result.data[i] = left.data[i] + right.data[i];
+    }
+    return result;
+};
+
+template<typename T, size_t N>
+Vector<T, N> operator-(const Vector<T, N> &left, const Vector<T, N> &right) {
+    Vector<T, N> result;
+    for (size_t i = 0; i < N; i++) {
+        result.data[i] = left.data[i] - right.data[i];
+    }
+    return result;
+};
+
+template<typename T, size_t N>
+Vector<T, N> operator/(const Vector<T, N> &a, T scalar) {
     Vector<T, N> result;
     for (size_t i = 0; i < N; i++) {
         result.data[i] = a.data[i] / scalar;
